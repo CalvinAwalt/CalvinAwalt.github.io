@@ -24,6 +24,19 @@
         const websiteForm = document.getElementById("websiteForm");
         const linksList = document.getElementById("links");
 
+        // Retrieve links from web storage on page load
+        window.addEventListener("load", () => {
+            const storedLinks = JSON.parse(localStorage.getItem("links")) || [];
+            storedLinks.forEach(link => {
+                const linkItem = document.createElement("li");
+                const linkAnchor = document.createElement("a");
+                linkAnchor.href = link;
+                linkAnchor.textContent = link;
+                linkItem.appendChild(linkAnchor);
+                linksList.appendChild(linkItem);
+            });
+        });
+
         websiteForm.addEventListener("submit", (event) => {
             event.preventDefault();
             const websiteLink = document.getElementById("websiteLink").value;
@@ -33,6 +46,11 @@
             linkAnchor.textContent = websiteLink;
             linkItem.appendChild(linkAnchor);
             linksList.appendChild(linkItem);
+
+            // Save links to web storage
+            const links = Array.from(linksList.getElementsByTagName("a")).map(link => link.href);
+            localStorage.setItem("links", JSON.stringify(links));
+
             websiteForm.reset();
         });
     </script>
