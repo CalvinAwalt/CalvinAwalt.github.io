@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Website Advertisements</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+    <h1>Post Your Website Advertisement</h1>
+
+    <form id="websiteForm">
+        <label for="websiteLink">Enter your website link:</label>
+        <input type="url" id="websiteLink" name="websiteLink" placeholder="https://www.example.com" required>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="websiteList">
+        <h2>Website Links</h2>
+        <ul id="links"></ul>
+    </div>
+
+    <script>
+        const websiteForm = document.getElementById("websiteForm");
+        const linksList = document.getElementById("links");
+
+        websiteForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const websiteLink = document.getElementById("websiteLink").value;
+            const linkItem = document.createElement("li");
+            const linkAnchor = document.createElement("a");
+            linkAnchor.href = websiteLink;
+            linkAnchor.textContent = websiteLink;
+            linkItem.appendChild(linkAnchor);
+            linksList.appendChild(linkItem);
+            websiteForm.reset();
+        });
+    </script>
+
+</body>
+</html>
